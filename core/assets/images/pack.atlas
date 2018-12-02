@@ -1,0 +1,118 @@
+
+pack.png
+size: 512,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+background
+  rotate: false
+  xy: 2, 246
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+god_face
+  rotate: false
+  xy: 2, 146
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: 0
+god_face
+  rotate: false
+  xy: 262, 406
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: 1
+god_face
+  rotate: false
+  xy: 2, 46
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: 2
+god_face
+  rotate: false
+  xy: 102, 146
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: 3
+god_face
+  rotate: false
+  xy: 262, 306
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: 4
+god_face
+  rotate: false
+  xy: 362, 406
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: 5
+hand_left
+  rotate: false
+  xy: 2, 2
+  size: 60, 40
+  orig: 60, 40
+  offset: 0, 0
+  index: -1
+hand_right
+  rotate: false
+  xy: 262, 262
+  size: 60, 40
+  orig: 60, 40
+  offset: 0, 0
+  index: -1
+joe_walk
+  rotate: false
+  xy: 462, 470
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 0
+joe_walk
+  rotate: false
+  xy: 362, 308
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 1
+joe_walk
+  rotate: false
+  xy: 423, 370
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 2
+joe_walk
+  rotate: false
+  xy: 66, 10
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 3
+mask1
+  rotate: false
+  xy: 102, 58
+  size: 105, 84
+  orig: 105, 84
+  offset: 0, 0
+  index: -1
+mask2
+  rotate: false
+  xy: 202, 180
+  size: 50, 62
+  orig: 50, 62
+  offset: 0, 0
+  index: -1
+moon
+  rotate: false
+  xy: 362, 344
+  size: 57, 58
+  orig: 57, 58
+  offset: 0, 0
+  index: -1

@@ -1,24 +1,45 @@
 package com.kothead.sacrifice;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.kothead.gdxjam.base.GdxJamGame;
+import com.kothead.gdxjam.base.context.DefaultContext;
+import com.kothead.gdxjam.base.data.GdxJamConfiguration;
+import com.kothead.gdxjam.base.screen.LoadingScreen;
+import com.kothead.sacrifice.screen.GameScreen;
 
-public class GodGame extends ApplicationAdapter {
-	
+public class GodGame extends GdxJamGame {
+
+	public GodGame() {
+		super(new GameConfiguration());
+	}
+
 	@Override
 	public void create () {
+		super.create();
+
+		showGameScreen();
 	}
 
-	@Override
-	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+	public void showGameScreen() {
+		getStateMachine().changeState(
+				DefaultContext.create(
+						new GameScreen.Builder(),
+						new LoadingScreen.Builder(),
+						Assets.images.BACKGROUND,
+						Assets.images.MASK1,
+						Assets.images.MASK2,
+						Assets.images.MOON,
+						Assets.images.HAND_LEFT,
+						Assets.images.HAND_RIGHT,
+						Assets.animations.JOE_WALK,
+						Assets.animations.GOD_FACE
+				)
+		);
 	}
-	
-	@Override
-	public void dispose () {
+
+	public static class GameConfiguration extends GdxJamConfiguration {
+		GameConfiguration() {
+			width = 640;
+			height = 360;
+		}
 	}
 }

@@ -1,4 +1,5 @@
 apply plugin: "java"
+apply plugin: "gdxjam"
 
 sourceCompatibility = 1.6
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
@@ -8,4 +9,80 @@ sourceSets.main.java.srcDirs = [ "src/" ]
 
 eclipse.project {
     name = appName + "-core"
+}
+
+packAssets {
+    inputDir = file("../images")
+    outputDir = file("../core/assets/images")
+    settings.with {
+        maxWidth = 1024
+        maxHeight = 1024
+        edgePadding = true
+        duplicatePadding = true
+        paddingX = 4
+        paddingY = 4
+    }
+}
+
+gatherAssets {
+    inputDir = file("../core/assets")
+    outputDir = file("src")
+    assetsPackage = 'com.kothead.sacrifice'
+    dependsOn packAssets
+
+    mappers {
+        "images/*.atlas" {
+            def atlasName = relative(getFile())
+            def atlasData = new com.badlogic.gdx.graphics.g2d.TextureAtlas.TextureAtlasData(
+                    new com.badlogic.gdx.files.FileHandle(it),
+                    new com.badlogic.gdx.files.FileHandle(getInputDir()),
+                    false)
+            atlasData.regions.each { region ->
+                asset {
+                    setFieldName "$region.name${region.index != -1 ? "_" + region.index : ''}"
+                    setFileName "$atlasName#$region.name"
+                    setAssetType com.badlogic.gdx.graphics.g2d.TextureRegion
+                    setParamType com.kothead.gdxjam.base.data.loader.TextureRegionLoader.TextureRegionParameter
+                    setParams "\"$atlasName\", \"$region.name\"${region.index != -1 ? ', ' + region.index : ''}"
+                }
+            }
+
+            /*String atlasName = relative(getFile())
+            it.readLines().findAll {
+                !it.trim().isEmpty() && !it.contains(":")
+            }.eachWithIndex { line, index ->
+                if (index == 0) return;
+                asset {
+                    setFieldName line.replaceAll("[^a-zA-Z_]+", "_")
+                    setAssetType com.badlogic.gdx.graphics.g2d.TextureRegion
+                    setParamType com.kothead.gdxjam.base.data.loader.TextureRegionLoader.TextureRegionParameter
+                    setParams "\"$atlasName\", \"$line\""
+                }
+            }*/
+        }
+        "animations/*.json" {
+            asset {
+                setFieldName filename(getFile()).replaceAll("[^a-zA-Z_]+", "_")
+                setAssetType com.kothead.gdxjam.base.util.TextureAnimation
+            }
+        }
+        "sounds/*.wav" {
+            asset {
+                setFieldName filename(getFile())    .replaceAll("[^a-zA-Z_]+", "_")
+                setAssetType com.badlogic.gdx.audio.Sound
+            }
+        }
+        "fonts/*.fnt" {
+            asset {
+                setFieldName filename(getFile()).replaceAll("[^a-zA-Z_]+", "_")
+                setAssetType com.badlogic.gdx.graphics.g2d.BitmapFont
+                setParams "\"images/pack.atlas\""
+                setParamType com.kothead.gdxjam.base.data.loader.BitmapFontParameter
+            }
+        }
+    }
+}
+
+build {
+    dependsOn gatherAssets
 }
