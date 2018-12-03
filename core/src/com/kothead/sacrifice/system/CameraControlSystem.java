@@ -6,10 +6,12 @@ import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.kothead.gdxjam.base.component.FollowCameraComponent;
 import com.kothead.gdxjam.base.component.PositionComponent;
+import com.kothead.gdxjam.base.component.SpriteComponent;
 import com.kothead.gdxjam.base.screen.BaseScreen;
 
 public class CameraControlSystem extends EntitySystem {
@@ -41,18 +43,28 @@ public class CameraControlSystem extends EntitySystem {
 
         Camera camera = screen.getCamera();
 
-        Vector3 position = PositionComponent.mapper.get(entities.first()).position;
+        Entity entity = entities.first();
+        Vector3 position = PositionComponent.mapper.get(entity).position;
         Vector2 half = new Vector2(screen.getWorldWidth() / 2.0f, screen.getWorldHeight() / 2.0f);
         Vector2 target = new Vector2();
 
         target.x = position.x;
         target.y = position.y;
 
-        if (position.x < half.x) target.x = half.x;
-        if (position.x > levelWidth - half.x) target.x = levelWidth - half.x;
+        Vector2 size = new Vector2();
+        if (SpriteComponent.mapper.has(entity)) {
+            Sprite sprite = SpriteComponent.mapper.get(entity).sprite;
+            size.set(sprite.getWidth() / 2.0f, sprite.getHeight() / 2.0f);
 
-        if (position.y < half.y) target.y = half.y;
-        if (position.y > levelHeight - half.y) target.y = levelHeight - half.y;
+            target.x += size.x;
+            target.y += size.y;
+        }
+
+        if (position.x + size.x < half.x) target.x = half.x;
+        if (position.x + size.x > levelWidth - half.x) target.x = levelWidth - half.x;
+
+        if (position.y + size.y < half.y) target.y = half.y;
+        if (position.y + size.y > levelHeight - half.y) target.y = levelHeight - half.y;
 
         Vector3 delta = new Vector3();
         delta.x = calcCameraSpeed(camera.position.x, target.x, deltaTime);

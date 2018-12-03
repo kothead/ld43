@@ -1,5 +1,6 @@
 package com.kothead.sacrifice.screen;
 
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.kothead.gdxjam.base.GdxJam;
@@ -29,12 +30,21 @@ public class GameScreen extends BaseScreen {
     protected void layout(int width, int height) {
         manager = new EntityManager(GdxJam.engine(), this);
         manager.addPlayerHead();
-        manager.addPlayerLeftHand();
-        manager.addPlayerRightHand();
+        Entity leftHand = manager.getPlayerLeftHand();
+        Entity rightHand = manager.getPlayerRightHand();
+
+        manager.addBeam(leftHand);
+        manager.addRay(rightHand);
+
+        manager.addEntity(leftHand);
+        manager.addEntity(rightHand);
 
         for (int i = 0; i < 10; i++) {
-            manager.addJoe();
+            manager.addFlyingJoe();
         }
+
+        manager.addAltarLeft();
+        manager.addAltarRight();
     }
 
     @Override

@@ -30,16 +30,26 @@ public class GodGame extends GdxJamGame {
 						Assets.images.MOON,
 						Assets.images.HAND_LEFT,
 						Assets.images.HAND_RIGHT,
+						Assets.images.BEAM,
+						Assets.images.RAY,
+						Assets.images.SPEAR,
+						Assets.images.JOE_TAKEN,
+						Assets.images.JOE_WALK_0,
 						Assets.animations.JOE_WALK,
-						Assets.animations.GOD_FACE
+						Assets.animations.JOE_DIE,
+						Assets.animations.JOE_THROW,
+						Assets.animations.GOD_FACE,
+						Assets.animations.ALTAR_BLOODY,
+                        Assets.animations.WING,
+                        Assets.animations.WING_BURN
 				)
 		);
 	}
 
 	public static class GameConfiguration extends GdxJamConfiguration {
 		GameConfiguration() {
-			width = 640;
-			height = 360;
+			width = 600;
+			height = 800;
 		}
 	}
 }

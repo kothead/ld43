@@ -1,118 +1,405 @@
 
 pack.png
-size: 512,512
+size: 1024,512
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+altar
+  rotate: false
+  xy: 671, 298
+  size: 50, 80
+  orig: 50, 80
+  offset: 0, 0
+  index: 0
+altar
+  rotate: false
+  xy: 725, 298
+  size: 50, 80
+  orig: 50, 80
+  offset: 0, 0
+  index: 1
+altar
+  rotate: false
+  xy: 779, 298
+  size: 50, 80
+  orig: 50, 80
+  offset: 0, 0
+  index: 2
+altar
+  rotate: false
+  xy: 833, 298
+  size: 50, 80
+  orig: 50, 80
+  offset: 0, 0
+  index: 3
+altar
+  rotate: false
+  xy: 887, 298
+  size: 50, 80
+  orig: 50, 80
+  offset: 0, 0
+  index: 4
+altar
+  rotate: false
+  xy: 102, 38
+  size: 50, 80
+  orig: 50, 80
+  offset: 0, 0
+  index: 5
+altar
+  rotate: false
+  xy: 234, 170
+  size: 50, 80
+  orig: 50, 80
+  offset: 0, 0
+  index: 6
+altar
+  rotate: false
+  xy: 288, 198
+  size: 50, 80
+  orig: 50, 80
+  offset: 0, 0
+  index: 7
+altar
+  rotate: false
+  xy: 342, 198
+  size: 50, 80
+  orig: 50, 80
+  offset: 0, 0
+  index: 8
 background
   rotate: false
-  xy: 2, 246
+  xy: 2, 254
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
+beam
+  rotate: false
+  xy: 2, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
 god_face
   rotate: false
-  xy: 2, 146
+  xy: 2, 22
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: 0
 god_face
   rotate: false
-  xy: 262, 406
+  xy: 134, 154
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: 1
 god_face
   rotate: false
-  xy: 2, 46
+  xy: 262, 282
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: 2
 god_face
   rotate: false
-  xy: 102, 146
+  xy: 922, 414
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: 3
 god_face
   rotate: false
-  xy: 262, 306
+  xy: 362, 282
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: 4
 god_face
   rotate: false
-  xy: 362, 406
+  xy: 462, 282
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: 5
 hand_left
   rotate: false
-  xy: 2, 2
+  xy: 511, 238
   size: 60, 40
   orig: 60, 40
   offset: 0, 0
   index: -1
 hand_right
   rotate: false
-  xy: 262, 262
+  xy: 575, 250
   size: 60, 40
   orig: 60, 40
   offset: 0, 0
   index: -1
-joe_walk
+joe_die
   rotate: false
-  xy: 462, 470
+  xy: 711, 262
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 0
+joe_throw
+  rotate: false
+  xy: 711, 262
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 5
+joe_throw
+  rotate: false
+  xy: 711, 262
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: 0
 joe_walk
   rotate: false
-  xy: 362, 308
+  xy: 711, 262
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 0
+joe_die
+  rotate: false
+  xy: 731, 262
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 1
+joe_die
+  rotate: false
+  xy: 751, 262
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 2
+joe_die
+  rotate: false
+  xy: 771, 262
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 3
+joe_die
+  rotate: false
+  xy: 791, 262
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 4
+joe_die
+  rotate: false
+  xy: 811, 262
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 5
+joe_die
+  rotate: false
+  xy: 831, 262
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 6
+joe_die
+  rotate: false
+  xy: 851, 262
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 7
+joe_die
+  rotate: false
+  xy: 871, 262
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 8
+joe_die
+  rotate: false
+  xy: 891, 262
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 9
+joe_die
+  rotate: false
+  xy: 911, 262
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 10
+joe_die
+  rotate: false
+  xy: 288, 162
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 11
+joe_taken
+  rotate: false
+  xy: 308, 162
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+joe_throw
+  rotate: false
+  xy: 328, 162
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 1
+joe_throw
+  rotate: false
+  xy: 328, 162
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 4
+joe_throw
+  rotate: false
+  xy: 348, 162
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 2
+joe_throw
+  rotate: false
+  xy: 368, 162
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 3
+joe_walk
+  rotate: false
+  xy: 931, 262
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: 1
 joe_walk
   rotate: false
-  xy: 423, 370
+  xy: 388, 162
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: 2
 joe_walk
   rotate: false
-  xy: 66, 10
+  xy: 511, 202
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: 3
 mask1
   rotate: false
-  xy: 102, 58
+  xy: 562, 294
   size: 105, 84
   orig: 105, 84
   offset: 0, 0
   index: -1
 mask2
   rotate: false
-  xy: 202, 180
+  xy: 457, 216
   size: 50, 62
   orig: 50, 62
   offset: 0, 0
   index: -1
 moon
   rotate: false
-  xy: 362, 344
+  xy: 396, 220
   size: 57, 58
   orig: 57, 58
   offset: 0, 0
   index: -1
+ray
+  rotate: false
+  xy: 22, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+spear
+  rotate: false
+  xy: 922, 405
+  size: 32, 5
+  orig: 32, 5
+  offset: 0, 0
+  index: -1
+wing
+  rotate: false
+  xy: 102, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+wing
+  rotate: false
+  xy: 138, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+wing
+  rotate: false
+  xy: 639, 258
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+wing
+  rotate: false
+  xy: 675, 262
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+wing_burn
+  rotate: false
+  xy: 2, 122
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 0
+wing_burn
+  rotate: false
+  xy: 262, 382
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 1
+wing_burn
+  rotate: false
+  xy: 394, 382
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 2
+wing_burn
+  rotate: false
+  xy: 526, 382
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 3
+wing_burn
+  rotate: false
+  xy: 658, 382
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 4
+wing_burn
+  rotate: false
+  xy: 790, 382
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 5
