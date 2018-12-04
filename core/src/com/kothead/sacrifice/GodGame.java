@@ -47,6 +47,12 @@ public class GodGame extends GdxJamGame {
 						Assets.animations.ALTAR_BLOODY,
                         Assets.animations.WING,
                         Assets.animations.WING_BURN,
+						Assets.sounds.BURN,
+						Assets.sounds.GAMEOVER,
+						Assets.sounds.HIT,
+						Assets.sounds.SACRIFICE,
+						Assets.sounds.WIN,
+						Assets.sounds.LEVEL,
 						Assets.fonts.DEFAULT
 				)
 		);
@@ -69,7 +75,8 @@ public class GodGame extends GdxJamGame {
 									}
 								}),
 						new LoadingScreen.Builder(),
-						Assets.fonts.DEFAULT
+						Assets.fonts.DEFAULT,
+						Assets.sounds.GAMEOVER
 		));
 	}
 
@@ -90,7 +97,8 @@ public class GodGame extends GdxJamGame {
 									}
 								}),
 						new LoadingScreen.Builder(),
-						Assets.fonts.DEFAULT
+						Assets.fonts.DEFAULT,
+						Assets.sounds.GAMEOVER
 				));
 	}
 
@@ -111,7 +119,8 @@ public class GodGame extends GdxJamGame {
 									}
 								}),
 						new LoadingScreen.Builder(),
-						Assets.fonts.DEFAULT
+						Assets.fonts.DEFAULT,
+						Assets.sounds.GAMEOVER
 				));
 	}
 
@@ -131,7 +140,8 @@ public class GodGame extends GdxJamGame {
 									}
 								}),
 						new LoadingScreen.Builder(),
-						Assets.fonts.DEFAULT
+						Assets.fonts.DEFAULT,
+						Assets.sounds.WIN
 				));
 	}
 

@@ -109,6 +109,8 @@ public class MessageScreen extends BaseScreen implements InputProcessor {
         stage().addActor(table);
 
         Gdx.input.setInputProcessor(this);
+
+        GdxJam.assets().get(Assets.sounds.GAMEOVER).play();
     }
 
     @Override

@@ -46,6 +46,7 @@ public class HitscanDetectionSystem extends CollisionDetectionSystem {
 
                             if (health.healthPoints < 0 && state != JoeState.DIE) {
                                 machine.changeState(JoeState.DIE);
+                                GdxJam.assets().get(Assets.sounds.BURN).play();
                             }
                             break;
 

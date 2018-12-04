@@ -97,6 +97,7 @@ public class TutorialScreen extends BaseScreen implements InputProcessor {
         sprite = new Sprite(new Texture(Gdx.files.internal("tutorial.png")));
 
         Gdx.input.setInputProcessor(this);
+        GdxJam.assets().get(Assets.sounds.WIN).play();
     }
 
     @Override

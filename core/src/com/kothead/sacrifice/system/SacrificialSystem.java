@@ -4,9 +4,11 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
+import com.kothead.gdxjam.base.GdxJam;
 import com.kothead.gdxjam.base.component.CollisionBoxComponent;
 import com.kothead.gdxjam.base.component.StateMachineComponent;
 import com.kothead.gdxjam.base.system.CollisionDetectionSystem;
+import com.kothead.sacrifice.Assets;
 import com.kothead.sacrifice.EntityManager;
 import com.kothead.sacrifice.component.AltarComponent;
 import com.kothead.sacrifice.component.HealthComponent;
@@ -54,6 +56,9 @@ public class SacrificialSystem extends CollisionDetectionSystem {
             if (hitscan.exp >= EntityManager.EXP_FOR_LEVEL + EntityManager.EXP_LEVEL_INCREASE * hitscan.level) {
                 hitscan.level++;
                 hitscan.exp = 0;
+                GdxJam.assets().get(Assets.sounds.LEVEL).play();
+            } else {
+                GdxJam.assets().get(Assets.sounds.SACRIFICE).play();
             }
         }
     }

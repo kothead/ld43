@@ -1,6 +1,7 @@
 package com.kothead.sacrifice;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.kothead.gdxjam.base.data.loader.BitmapFontParameter;
@@ -8,7 +9,7 @@ import com.kothead.gdxjam.base.data.loader.TextureRegionLoader;
 import com.kothead.gdxjam.base.util.TextureAnimation;
 
 public final class Assets {
-  public static final AssetDescriptor[] ALL = {animations.JOE_DIE, animations.JOE_WALK, animations.WING_BURN, animations.ALTAR_BLOODY, animations.JOE_THROW, animations.GOD_FACE, animations.WING, fonts.DEFAULT, images.ALTAR_0, images.GOD_FACE_0, images.JOE_DIE_0, images.JOE_THROW_0, images.JOE_WALK_0, images.WING_0, images.WING_BURN_0, images.ALTAR_1, images.GOD_FACE_1, images.JOE_DIE_1, images.JOE_THROW_1, images.JOE_WALK_1, images.WING_1, images.WING_BURN_1, images.ALTAR_2, images.GOD_FACE_2, images.JOE_DIE_2, images.JOE_THROW_2, images.JOE_WALK_2, images.WING_2, images.WING_BURN_2, images.ALTAR_3, images.GOD_FACE_3, images.JOE_DIE_3, images.JOE_THROW_3, images.JOE_WALK_3, images.WING_3, images.WING_BURN_3, images.ALTAR_4, images.GOD_FACE_4, images.JOE_DIE_4, images.JOE_THROW_4, images.WING_BURN_4, images.ALTAR_5, images.GOD_FACE_5, images.JOE_THROW_5, images.JOE_DIE_5, images.WING_BURN_5, images.ALTAR_6, images.JOE_DIE_6, images.ALTAR_7, images.JOE_DIE_7, images.ALTAR_8, images.JOE_DIE_8, images.JOE_DIE_9, images.JOE_DIE_10, images.JOE_DIE_11, images.BACKGROUND, images.BAR, images.BEAM, images.FONT, images.HAND_LEFT, images.HAND_RIGHT, images.HEALTH, images.JOE_TAKEN, images.MASK1, images.MASK2, images.MOON, images.RAY, images.SPEAR};
+  public static final AssetDescriptor[] ALL = {animations.JOE_DIE, animations.JOE_WALK, animations.WING_BURN, animations.ALTAR_BLOODY, animations.JOE_THROW, animations.GOD_FACE, animations.WING, fonts.DEFAULT, images.ALTAR_0, images.GOD_FACE_0, images.JOE_DIE_0, images.JOE_THROW_0, images.JOE_WALK_0, images.WING_0, images.WING_BURN_0, images.ALTAR_1, images.GOD_FACE_1, images.JOE_DIE_1, images.JOE_THROW_1, images.JOE_WALK_1, images.WING_1, images.WING_BURN_1, images.ALTAR_2, images.GOD_FACE_2, images.JOE_DIE_2, images.JOE_THROW_2, images.JOE_WALK_2, images.WING_2, images.WING_BURN_2, images.ALTAR_3, images.GOD_FACE_3, images.JOE_DIE_3, images.JOE_THROW_3, images.JOE_WALK_3, images.WING_3, images.WING_BURN_3, images.ALTAR_4, images.GOD_FACE_4, images.JOE_DIE_4, images.JOE_THROW_4, images.WING_BURN_4, images.ALTAR_5, images.GOD_FACE_5, images.JOE_THROW_5, images.JOE_DIE_5, images.WING_BURN_5, images.ALTAR_6, images.JOE_DIE_6, images.ALTAR_7, images.JOE_DIE_7, images.ALTAR_8, images.JOE_DIE_8, images.JOE_DIE_9, images.JOE_DIE_10, images.JOE_DIE_11, images.BACKGROUND, images.BAR, images.BEAM, images.FONT, images.HAND_LEFT, images.HAND_RIGHT, images.HEALTH, images.JOE_TAKEN, images.MASK1, images.MASK2, images.MOON, images.RAY, images.SPEAR, sounds.HIT, sounds.GAMEOVER, sounds.LEVEL, sounds.BURN, sounds.SACRIFICE, sounds.WIN};
 
   public static final class animations {
     public static final AssetDescriptor<TextureAnimation> JOE_DIE = new AssetDescriptor<TextureAnimation>("animations/joe_die.json", TextureAnimation.class);
@@ -156,5 +157,21 @@ public final class Assets {
     public static final AssetDescriptor<TextureRegion> SPEAR = new AssetDescriptor<TextureRegion>("images/pack.atlas#spear", TextureRegion.class, new TextureRegionLoader.TextureRegionParameter("images/pack.atlas", "spear"));
 
     public static final AssetDescriptor[] ALL = {ALTAR_0, GOD_FACE_0, JOE_DIE_0, JOE_THROW_0, JOE_WALK_0, WING_0, WING_BURN_0, ALTAR_1, GOD_FACE_1, JOE_DIE_1, JOE_THROW_1, JOE_WALK_1, WING_1, WING_BURN_1, ALTAR_2, GOD_FACE_2, JOE_DIE_2, JOE_THROW_2, JOE_WALK_2, WING_2, WING_BURN_2, ALTAR_3, GOD_FACE_3, JOE_DIE_3, JOE_THROW_3, JOE_WALK_3, WING_3, WING_BURN_3, ALTAR_4, GOD_FACE_4, JOE_DIE_4, JOE_THROW_4, WING_BURN_4, ALTAR_5, GOD_FACE_5, JOE_THROW_5, JOE_DIE_5, WING_BURN_5, ALTAR_6, JOE_DIE_6, ALTAR_7, JOE_DIE_7, ALTAR_8, JOE_DIE_8, JOE_DIE_9, JOE_DIE_10, JOE_DIE_11, BACKGROUND, BAR, BEAM, FONT, HAND_LEFT, HAND_RIGHT, HEALTH, JOE_TAKEN, MASK1, MASK2, MOON, RAY, SPEAR};
+  }
+
+  public static final class sounds {
+    public static final AssetDescriptor<Sound> HIT = new AssetDescriptor<Sound>("sounds/hit.wav", Sound.class);
+
+    public static final AssetDescriptor<Sound> GAMEOVER = new AssetDescriptor<Sound>("sounds/gameover.wav", Sound.class);
+
+    public static final AssetDescriptor<Sound> LEVEL = new AssetDescriptor<Sound>("sounds/level.wav", Sound.class);
+
+    public static final AssetDescriptor<Sound> BURN = new AssetDescriptor<Sound>("sounds/burn.wav", Sound.class);
+
+    public static final AssetDescriptor<Sound> SACRIFICE = new AssetDescriptor<Sound>("sounds/sacrifice.wav", Sound.class);
+
+    public static final AssetDescriptor<Sound> WIN = new AssetDescriptor<Sound>("sounds/win.wav", Sound.class);
+
+    public static final AssetDescriptor[] ALL = {HIT, GAMEOVER, LEVEL, BURN, SACRIFICE, WIN};
   }
 }

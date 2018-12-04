@@ -7,6 +7,7 @@ import com.kothead.gdxjam.base.component.CollisionBoxComponent;
 import com.kothead.gdxjam.base.component.PositionComponent;
 import com.kothead.gdxjam.base.component.VelocityComponent;
 import com.kothead.gdxjam.base.system.CollisionDetectionSystem;
+import com.kothead.sacrifice.Assets;
 import com.kothead.sacrifice.EntityManager;
 import com.kothead.sacrifice.GodGame;
 import com.kothead.sacrifice.component.*;
@@ -36,6 +37,7 @@ public class DamageDetectionSystem extends CollisionDetectionSystem {
 
         HealthComponent health = HealthComponent.mapper.get(second);
         health.healthPoints -= ProjectileComponent.mapper.get(first).damage;
+        GdxJam.assets().get(Assets.sounds.HIT).play();
         if (health.healthPoints < 0) {
             manager.readyToGameOver();
         }

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.kothead.gdxjam.base.GdxJam;
 import com.kothead.gdxjam.base.component.*;
 import com.kothead.gdxjam.base.screen.BaseScreen;
 import com.kothead.gdxjam.base.system.*;
@@ -197,7 +198,7 @@ public class EntityManager {
         entity.add(new StateMachineComponent(new EntityStateMachine(entity, JoeState.WALK)));
         entity.add(new IntelligenceComponent());
         entity.add(new VictimComponent());
-        entity.add(new AggressivenessComponent(0.2f));
+        entity.add(new AggressivenessComponent(0.1f));
         entity.add(new HealthComponent(JOE_HIT_POINTS));
         entity.add(new FlyingComponent());
 
