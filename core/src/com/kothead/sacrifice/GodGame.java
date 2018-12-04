@@ -62,7 +62,7 @@ public class GodGame extends GdxJamGame {
 		getStateMachine().changeState(
 				DefaultContext.create(
 						new MessageScreen.Builder()
-								.setMessage("FALSE GOD")
+								.setMessage("FALSE  GOD")
 								.setCallback(new MessageScreen.ContinueCallback() {
 									@Override
 									public void onContinue() {
@@ -84,7 +84,7 @@ public class GodGame extends GdxJamGame {
 		getStateMachine().changeState(
 				DefaultContext.create(
 						new MessageScreen.Builder()
-								.setMessage("SACRIFICE DECLINED")
+								.setMessage("I  DECLINE  YOUR  SACRIFICE")
 								.setCallback(new MessageScreen.ContinueCallback() {
 									@Override
 									public void onContinue() {
@@ -106,7 +106,7 @@ public class GodGame extends GdxJamGame {
 		getStateMachine().changeState(
 				DefaultContext.create(
 						new MessageScreen.Builder()
-								.setMessage("SACRIFICE ACCEPTED")
+								.setMessage("I  ACCEPT  YOUR  SACRIFICE")
 								.setCallback(new MessageScreen.ContinueCallback() {
 									@Override
 									public void onContinue() {

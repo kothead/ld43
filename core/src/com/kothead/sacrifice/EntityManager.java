@@ -287,10 +287,10 @@ public class EntityManager {
         entity.add(new PositionComponent(LEFT_ALTAR_X, ALTAR_Y, 0));
         entity.add(new AltarComponent(hitscan));
         entity.add(new CollisionBoxComponent(new Polygon(new float[] {
-                0, 0,
-                50, 0,
-                50, 80,
-                0, 80
+                0, 40,
+                50, 40,
+                50, 96,
+                0, 96
         })));
 
         engine.addEntity(entity);
@@ -307,10 +307,10 @@ public class EntityManager {
         entity.add(new PositionComponent(RIGHT_ALTAR_X, ALTAR_Y, 0));
         entity.add(new AltarComponent(hitscan));
         entity.add(new CollisionBoxComponent(new Polygon(new float[] {
-                0, 0,
-                50, 0,
-                50, 80,
-                0, 80
+                0, 40,
+                50, 40,
+                50, 96,
+                0, 96
         })));
 
         engine.addEntity(entity);
