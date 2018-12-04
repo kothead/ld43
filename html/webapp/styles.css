@@ -3,6 +3,10 @@ html, body, div, canvas {
     padding: 0;
 }
 
+body {
+    background-color: rgb(41,50,63);
+}
+
 canvas {
     cursor: default;
     outline: none;
