@@ -19,18 +19,44 @@ import com.kothead.sacrifice.util.GodSprite;
 
 public class EntityManager {
 
-    private static final int LEVEL_WIDTH = 800;
-    private static final int LEVEL_HEIGHT = 1600;
+    public static final int LEVEL_WIDTH = 600;
+    public static final int LEVEL_HEIGHT = 800;
     private static final int LEVEL_GROUND = 32;
 
-    private static final int LEFT_ALTAR_X = 250;
-    private static final int RIGHT_ALTAR_X = 500;
-    private static final int ALTAR_Y = 500;
+    private static final int LEFT_ALTAR_X = 200;
+    private static final int RIGHT_ALTAR_X = 400;
+    private static final int ALTAR_Y = 200;
 
-    private static final float SPEED_SPEAR = 100.0f;
+    private static final float SPEED_SPEAR = 150.0f;
+    private static final float DAMAGE_SPEAR = 100.0f;
+
+    private static final float JOE_HIT_POINTS = 1000.0f;
+    public static final float GOD_HIT_POINTS = 1000.0f;
+    public static final float RESTORE_HP_PER_SACRIFICE = 200.0f;
+
+    public static final float MAX_DISTANCE_X = 150.0f;
+    public static final float MAX_DISTANCE_Y = 100.0f;
+
+    public static final float DELETE_SPEAR_AFTER = 2.0f;
+
+    private static final float STARTING_POWER_BEAM = 10.0f;
+    private static final float STARTING_POWER_RAY = 300.0f;
+    public static final float BEAM_SCALE_UP = 2.0f;
+    public static final int EXP_FOR_SACRIFICE = 50;
+    public static final int EXP_FOR_LEVEL = 100;
+    public static final int EXP_LEVEL_INCREASE = 100;
+    public static final int LEVEL_WIN = 5;
+
+    public static final int STARTING_JOES_COUNT = 5;
+    public static final int STARTING_FLYING_JOES_COUNT = 0;
+    public static final int JOES_PER_WAVE_INCREASE = 3;
+    public static final int FLYING_JOES_PER_WAVE_INCREASE = 2;
 
     private Engine engine;
     private BaseScreen screen;
+
+    private boolean gameOver = false;
+    private boolean gameWin = false;
 
     public EntityManager(Engine engine, BaseScreen screen) {
         this.engine = engine;
@@ -40,6 +66,7 @@ public class EntityManager {
 
     public void registerSystems() {
         int priority = 0;
+        engine.addSystem(new WaveGeneratorSystem(priority++, this));
         engine.addSystem(new InputSystem(priority++, screen));
         engine.addSystem(new AiSystem(this, priority++, LEVEL_WIDTH, LEVEL_HEIGHT));
         engine.addSystem(new GravitySystem(priority++, LEVEL_GROUND));
@@ -47,6 +74,8 @@ public class EntityManager {
 
         engine.addSystem(new HitscanTracerSystem(priority++, LEVEL_GROUND));
         engine.addSystem(new HitscanDetectionSystem(priority++));
+        engine.addSystem(new DamageDetectionSystem(priority++, this));
+        engine.addSystem(new SacrificialSystem(priority++));
         engine.addSystem(new CleanerSystem(priority++));
 
         engine.addSystem(new CameraControlSystem(priority++, screen, LEVEL_WIDTH, LEVEL_HEIGHT));
@@ -55,18 +84,27 @@ public class EntityManager {
         engine.addSystem(new HierarchyControlSystem(priority++));
         engine.addSystem(new BackgroundRenderSystem(priority++, screen));
         engine.addSystem(new RenderSystem(priority++, screen.batch()));
+        engine.addSystem(new ForegroundRenderSystem(priority++, screen));
         engine.addSystem(new DebugRenderSystem(priority++, screen));
     }
 
-    public Entity addPlayerHead() {
+    public Entity addPlayerHead(HealthComponent healthComponent) {
         Entity entity = new Entity();
 //        AnimationHelper.setTexture(entity, Assets.images.MASK1);
         entity.add(new SpriteComponent(new GodSprite()));
         AnimationHelper.setAnimation(entity, Assets.animations.GOD_FACE);
 
-        entity.add(new PositionComponent(0.0f, 0.0f, 0.0f));
+        entity.add(new PositionComponent(LEVEL_WIDTH / 2.0f, LEVEL_HEIGHT / 2.0f, 0.0f));
         entity.add(new VelocityComponent(0.0f, 0.0f));
         entity.add(new ControllableComponent());
+        entity.add(new CollisionBoxComponent(new Polygon(new float[] {
+                0, 32,
+                34, 32,
+                34, 66,
+                0, 66
+
+        })));
+        entity.add(healthComponent);
 //        entity.add(new DebugComponent(new Polygon(new float[] {
 //                0, 0,
 //                64, 0,
@@ -78,30 +116,44 @@ public class EntityManager {
         return entity;
     }
 
-    public Entity getPlayerLeftHand() {
+    public Entity getPlayerLeftHand(HealthComponent healthComponent) {
         Entity entity = new Entity();
         entity.add(new SpriteComponent(new GodSprite()));
         AnimationHelper.setTexture(entity, Assets.images.HAND_RIGHT);
 
         entity.add(new OrientationComponent(OrientationComponent.Orientation.LEFT));
-        entity.add(new PositionComponent(0.0f, 0.0f, 0.0f));
+        entity.add(new PositionComponent(LEVEL_WIDTH / 2.0f - 40.0f, LEVEL_HEIGHT / 2.0f + 10.0f, 0.0f));
         entity.add(new VelocityComponent(0.0f, 0.0f));
         entity.add(new ControllableComponent());
+        entity.add(new CollisionBoxComponent(new Polygon(new float[] {
+                -20, 20,
+                20, 20,
+                20, 35,
+                -20, 35
+        })));
+        entity.add(healthComponent);
 
         // cannot add it right away, because of ray
 
         return entity;
     }
 
-    public Entity getPlayerRightHand() {
+    public Entity getPlayerRightHand(HealthComponent healthComponent) {
         Entity entity = new Entity();
         entity.add(new SpriteComponent(new GodSprite()));
         AnimationHelper.setTexture(entity, Assets.images.HAND_LEFT);
 
         entity.add(new OrientationComponent(OrientationComponent.Orientation.RIGHT));
-        entity.add(new PositionComponent(0.0f, 0.0f, 0.0f));
+        entity.add(new PositionComponent(LEVEL_WIDTH / 2.0f + 60.0f, LEVEL_HEIGHT / 2.0f - 10.0f, 0.0f));
         entity.add(new VelocityComponent(0.0f, 0.0f));
         entity.add(new ControllableComponent());
+        entity.add(new CollisionBoxComponent(new Polygon(new float[] {
+                -20, 20,
+                20, 20,
+                20, 35,
+                -20, 35
+        })));
+        entity.add(healthComponent);
 
         // cannot add it right away, because of beam
 
@@ -112,13 +164,18 @@ public class EntityManager {
         Entity entity = new Entity();
 
         entity.add(new SpriteComponent(new Sprite()));
-        entity.add(new PositionComponent(0.0f, 32.0f, 0.0f));
+        entity.add(new PositionComponent(
+                Math.random() > 0.5f ? -16.0f : LEVEL_WIDTH,
+                32.0f,
+                0.0f
+        ));
         entity.add(new VelocityComponent(30.0f, 0.0f));
         entity.add(new GravityComponent());
         entity.add(new StateMachineComponent(new EntityStateMachine(entity, JoeState.WALK)));
         entity.add(new IntelligenceComponent());
         entity.add(new VictimComponent());
-        entity.add(new AggressivenessComponent(0.2f));
+        entity.add(new AggressivenessComponent(0.05f));
+        entity.add(new HealthComponent(JOE_HIT_POINTS));
 
         entity.add(new CollisionBoxComponent(new Polygon(new float[] {
                 0, 0, 16, 0, 16, 32, 0, 32
@@ -131,12 +188,18 @@ public class EntityManager {
         Entity entity = new Entity();
 
         entity.add(new SpriteComponent(new Sprite()));
-        entity.add(new PositionComponent(0.0f, 32.0f, 0.0f));
+        entity.add(new PositionComponent(
+                Math.random() > 0.5f ? -16.0f : LEVEL_WIDTH,
+                (float) (32.0f + Math.random() * (LEVEL_HEIGHT - 32.0f)),
+                0.0f
+        ));
         entity.add(new VelocityComponent(30.0f, 0.0f));
         entity.add(new StateMachineComponent(new EntityStateMachine(entity, JoeState.WALK)));
         entity.add(new IntelligenceComponent());
         entity.add(new VictimComponent());
         entity.add(new AggressivenessComponent(0.2f));
+        entity.add(new HealthComponent(JOE_HIT_POINTS));
+        entity.add(new FlyingComponent());
 
         entity.add(new CollisionBoxComponent(new Polygon(new float[] {
                 0, 0, 16, 0, 16, 32, 0, 32
@@ -147,6 +210,10 @@ public class EntityManager {
         AnimationHelper.setAnimation(wings, Assets.animations.WING);
         wings.add(new PositionComponent(0, 0, 0));
         wings.add(new AttachedToComponent(entity, -16, 0));
+        wings.add(new VictimComponent());
+        wings.add(new CollisionBoxComponent(new Polygon(new float[] {
+                0, 0, 16, 0, 16, 32, 0, 32
+        })));
 
         engine.addEntity(wings);
 
@@ -157,12 +224,14 @@ public class EntityManager {
         Entity entity = new Entity();
         AnimationHelper.setTexture(entity, Assets.images.SPEAR);
 
-        Vector3 joePosition = PositionComponent.mapper.get(joe).position;
-        float dx = target.x - joePosition.x;
-        float dy = target.y - joePosition.y;
+        Vector3 position = new Vector3(PositionComponent.mapper.get(joe).position);
+        position.x += SpriteComponent.mapper.get(joe).sprite.isFlipX() ? -8.0f : 16.0f;
+        position.y += 16.0f;
+        float dx = target.x - position.x;
+        float dy = target.y - position.y;
         float distance = (float) Math.sqrt(dx * dx + dy * dy);
 
-        entity.add(new PositionComponent(joePosition));
+        entity.add(new PositionComponent(position));
         entity.add(new VelocityComponent(
                 (float) (SPEED_SPEAR * dx / distance),
                 (float) (SPEED_SPEAR * dy / distance)
@@ -171,7 +240,7 @@ public class EntityManager {
         entity.add(new CollisionBoxComponent(new Polygon(new float[] {
                 0, 0, 4, 0, 4, 4, 0, 4
         })));
-        entity.add(new ProjectileComponent());
+        entity.add(new ProjectileComponent(DAMAGE_SPEAR));
         engine.addEntity(entity);
         return entity;
     }
@@ -184,7 +253,8 @@ public class EntityManager {
         entity.add(new PositionComponent(0, 0, 0));
         entity.add(new HitscanComponent(
                 HitscanComponent.Type.RAY,
-                hand.getComponent(PositionComponent.class).position
+                hand.getComponent(PositionComponent.class).position,
+                STARTING_POWER_RAY
         ));
 
         entity.add(new CollisionBoxComponent(new Polygon()));
@@ -200,7 +270,8 @@ public class EntityManager {
         entity.add(new PositionComponent(0, 0, 0));
         entity.add(new HitscanComponent(
                 HitscanComponent.Type.BEAM,
-                hand.getComponent(PositionComponent.class).position
+                hand.getComponent(PositionComponent.class).position,
+                STARTING_POWER_BEAM
         ));
 
         entity.add(new CollisionBoxComponent(new Polygon()));
@@ -208,17 +279,24 @@ public class EntityManager {
         return entity;
     }
 
-    public Entity addAltarLeft() {
+    public Entity addAltarLeft(Entity hitscan) {
         Entity entity = new Entity();
         AnimationHelper.setAnimation(entity, Assets.animations.ALTAR_BLOODY);
 
         entity.add(new PositionComponent(LEFT_ALTAR_X, ALTAR_Y, 0));
+        entity.add(new AltarComponent(hitscan));
+        entity.add(new CollisionBoxComponent(new Polygon(new float[] {
+                0, 0,
+                50, 0,
+                50, 80,
+                0, 80
+        })));
 
         engine.addEntity(entity);
         return entity;
     }
 
-    public Entity addAltarRight() {
+    public Entity addAltarRight(Entity hitscan) {
         Entity entity = new Entity();
         SpriteComponent spriteComponent = new SpriteComponent(new Sprite());
         entity.add(spriteComponent);
@@ -226,6 +304,13 @@ public class EntityManager {
         spriteComponent.sprite.flip(true, false);
 
         entity.add(new PositionComponent(RIGHT_ALTAR_X, ALTAR_Y, 0));
+        entity.add(new AltarComponent(hitscan));
+        entity.add(new CollisionBoxComponent(new Polygon(new float[] {
+                0, 0,
+                50, 0,
+                50, 80,
+                0, 80
+        })));
 
         engine.addEntity(entity);
         return entity;
@@ -238,5 +323,21 @@ public class EntityManager {
     public void dispose() {
         engine.removeAllEntities();
         engine.removeAllSystems();
+    }
+
+    public void readyToGameOver() {
+        this.gameOver = true;
+    }
+
+    public void readyToGameWin() {
+        this.gameWin = true;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
+    public boolean isGameWin() {
+        return gameWin;
     }
 }

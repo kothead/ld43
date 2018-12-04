@@ -15,9 +15,14 @@ public class HitscanComponent implements Component {
 
     public final Type type;
     public final Vector3 origin;
+    public float power;
 
-    public HitscanComponent(Type type, Vector3 origin) {
+    public int exp;
+    public int level = 1;
+
+    public HitscanComponent(Type type, Vector3 origin, float power) {
         this.type = type;
         this.origin = origin;
+        this.power = power;
     }
 }

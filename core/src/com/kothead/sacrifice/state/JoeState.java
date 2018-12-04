@@ -46,6 +46,26 @@ public enum JoeState implements State<Entity> {
             }
         }
     },
+    FLY {
+        @Override
+        public void enter(Entity entity) {
+            super.enter(entity);
+
+            setTexture(entity, Assets.images.JOE_WALK_0);
+        }
+
+        @Override
+        public void update(Entity entity) {
+            super.update(entity);
+
+            Sprite sprite = SpriteComponent.mapper.get(entity).sprite;
+            Vector2 velocity = VelocityComponent.mapper.get(entity).velocity;
+            if (velocity.x > 0.0f && sprite.isFlipX()
+                    || velocity.x < 0.0f && !sprite.isFlipX()) {
+                sprite.flip(true, false);
+            }
+        }
+    },
     DIE {
         @Override
         public void enter(Entity entity) {

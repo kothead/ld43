@@ -17,7 +17,7 @@ public class GodSprite extends Sprite {
     private static final float FOG_RANGE = 0.4f;
 
     private float timeToUpdate = 0;
-    private LinkedList<Vector2> queue = new LinkedList<>();
+    private LinkedList<Vector2> queue = new LinkedList<Vector2>();
 
     @Override
     public void setPosition(float x, float y) {

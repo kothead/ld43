@@ -8,7 +8,6 @@ buildscript {
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         jcenter()
         google()
-        maven { url "https://jitpack.io" }
     }
     dependencies {
         classpath 'org.wisepersist:gwt-gradle-plugin:1.0.6'
@@ -37,7 +36,6 @@ allprojects {
         google()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
-        maven { url "https://jitpack.io" }
     }
 }
 

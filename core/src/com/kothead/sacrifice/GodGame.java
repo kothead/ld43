@@ -1,10 +1,13 @@
 package com.kothead.sacrifice;
 
+import com.badlogic.gdx.Gdx;
 import com.kothead.gdxjam.base.GdxJamGame;
 import com.kothead.gdxjam.base.context.DefaultContext;
 import com.kothead.gdxjam.base.data.GdxJamConfiguration;
 import com.kothead.gdxjam.base.screen.LoadingScreen;
 import com.kothead.sacrifice.screen.GameScreen;
+import com.kothead.sacrifice.screen.MessageScreen;
+import com.kothead.sacrifice.screen.TutorialScreen;
 
 public class GodGame extends GdxJamGame {
 
@@ -16,7 +19,7 @@ public class GodGame extends GdxJamGame {
 	public void create () {
 		super.create();
 
-		showGameScreen();
+		showTitleScreen();
 	}
 
 	public void showGameScreen() {
@@ -32,6 +35,8 @@ public class GodGame extends GdxJamGame {
 						Assets.images.HAND_RIGHT,
 						Assets.images.BEAM,
 						Assets.images.RAY,
+						Assets.images.HEALTH,
+						Assets.images.BAR,
 						Assets.images.SPEAR,
 						Assets.images.JOE_TAKEN,
 						Assets.images.JOE_WALK_0,
@@ -41,15 +46,99 @@ public class GodGame extends GdxJamGame {
 						Assets.animations.GOD_FACE,
 						Assets.animations.ALTAR_BLOODY,
                         Assets.animations.WING,
-                        Assets.animations.WING_BURN
+                        Assets.animations.WING_BURN,
+						Assets.fonts.DEFAULT
 				)
 		);
 	}
 
+	public void showTitleScreen() {
+		getStateMachine().changeState(
+				DefaultContext.create(
+						new MessageScreen.Builder()
+								.setMessage("FALSE GOD")
+								.setCallback(new MessageScreen.ContinueCallback() {
+									@Override
+									public void onContinue() {
+										showTutorialScreen();
+									}
+
+									@Override
+									public void onBack() {
+										Gdx.app.exit();
+									}
+								}),
+						new LoadingScreen.Builder(),
+						Assets.fonts.DEFAULT
+		));
+	}
+
+	public void showGameOverScreen() {
+		getStateMachine().changeState(
+				DefaultContext.create(
+						new MessageScreen.Builder()
+								.setMessage("SACRIFICE DECLINED")
+								.setCallback(new MessageScreen.ContinueCallback() {
+									@Override
+									public void onContinue() {
+										showGameScreen();
+									}
+
+									@Override
+									public void onBack() {
+										Gdx.app.exit();
+									}
+								}),
+						new LoadingScreen.Builder(),
+						Assets.fonts.DEFAULT
+				));
+	}
+
+	public void showWinScreen() {
+		getStateMachine().changeState(
+				DefaultContext.create(
+						new MessageScreen.Builder()
+								.setMessage("SACRIFICE ACCEPTED")
+								.setCallback(new MessageScreen.ContinueCallback() {
+									@Override
+									public void onContinue() {
+										showGameScreen();
+									}
+
+									@Override
+									public void onBack() {
+										Gdx.app.exit();
+									}
+								}),
+						new LoadingScreen.Builder(),
+						Assets.fonts.DEFAULT
+				));
+	}
+
+	public void showTutorialScreen() {
+		getStateMachine().changeState(
+				DefaultContext.create(
+						new TutorialScreen.Builder()
+								.setCallback(new TutorialScreen.ContinueCallback() {
+									@Override
+									public void onContinue() {
+										showGameScreen();
+									}
+
+									@Override
+									public void onBack() {
+										Gdx.app.exit();
+									}
+								}),
+						new LoadingScreen.Builder(),
+						Assets.fonts.DEFAULT
+				));
+	}
+
 	public static class GameConfiguration extends GdxJamConfiguration {
 		GameConfiguration() {
-			width = 600;
-			height = 800;
+			width = 720;
+			height = 1280;
 		}
 	}
 }

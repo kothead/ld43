@@ -12,7 +12,7 @@ public class AttachedToComponent implements Component {
     public Entity parent;
     public Vector2 offset;
 
-    public AttachedToComponent(Entity parent, int offsetx, int offsety) {
+    public AttachedToComponent(Entity parent, float offsetx, float offsety) {
         this.parent = parent;
         offset = new Vector2(offsetx, offsety);
     }

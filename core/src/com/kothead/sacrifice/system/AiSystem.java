@@ -10,20 +10,21 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.kothead.gdxjam.base.component.*;
-import com.kothead.gdxjam.base.util.Utils;
 import com.kothead.sacrifice.EntityManager;
 import com.kothead.sacrifice.component.AggressivenessComponent;
 import com.kothead.sacrifice.component.ControllableComponent;
+import com.kothead.sacrifice.component.FlyingComponent;
 import com.kothead.sacrifice.component.IntelligenceComponent;
 import com.kothead.sacrifice.state.JoeState;
 
 public class AiSystem extends IteratingSystem {
 
     private static final float SPEED_WALK = 30.0f;
-    private static final float SPEED_FLY = 40.0f;
+    private static final float SPEED_FLY = 20.0f;
     public static final float TIME_TO_DECIDE = 1.0f;
 
     private static final int DISTANCE_FROM_BORDER = 16;
+    private static final int DISTANCE_FROM_ENEMY = 80;
 
     private EntityManager manager;
     private ImmutableArray<Entity> enemies;
@@ -61,18 +62,18 @@ public class AiSystem extends IteratingSystem {
         JoeState state = (JoeState) machine.getCurrentState();
 
         IntelligenceComponent intelligenceComponent = IntelligenceComponent.mapper.get(entity);
+        boolean isFlying = FlyingComponent.mapper.has(entity);
 
+        Entity enemy = enemies.first();
+        Sprite sprite = SpriteComponent.mapper.get(enemy).sprite;
+        Vector3 enemyPosition = PositionComponent.mapper.get(enemy).position;
+        Vector2 target = new Vector2(
+                enemyPosition.x + sprite.getWidth() / 2.0f,
+                enemyPosition.y + sprite.getHeight() / 2.0f
+        );
         if (state == JoeState.THROW && intelligenceComponent.timeFromDecision >= TIME_TO_DECIDE) {
-            Entity enemy = enemies.first();
-            Sprite sprite = SpriteComponent.mapper.get(enemy).sprite;
-            Vector3 enemyPosition = PositionComponent.mapper.get(enemy).position;
-            Vector2 target = new Vector2(
-                    enemyPosition.x + sprite.getWidth() / 2.0f,
-                    enemyPosition.y + sprite.getHeight() / 2.0f
-            );
-
             manager.addSpear(entity, target);
-        } else if (state != JoeState.IDLE && state != JoeState.WALK) return;
+        } else if (state != JoeState.IDLE && state != JoeState.WALK && state != JoeState.FLY) return;
 
         intelligenceComponent.timeFromDecision += deltaTime;
 
@@ -89,16 +90,35 @@ public class AiSystem extends IteratingSystem {
                     return;
                 }
             }
-            velocity.x = Math.random() > 0.5f ? SPEED_WALK : -SPEED_WALK;
-            if (state != JoeState.WALK) machine.changeState(JoeState.WALK);
+
+            if (isFlying) {
+                velocity.x = Math.random() > 0.5f ? SPEED_FLY : -SPEED_FLY;
+                velocity.y = Math.random() > 0.5f ? SPEED_FLY : -SPEED_FLY;
+                if (state != JoeState.FLY) machine.changeState(JoeState.FLY);
+            } else {
+                velocity.x = Math.random() > 0.5f ? SPEED_WALK : -SPEED_WALK;
+                if (state != JoeState.WALK) machine.changeState(JoeState.WALK);
+            }
         }
 
-        if (position.x < DISTANCE_FROM_BORDER && velocity.x < 0) {
-            velocity.x = SPEED_WALK;
+        if (position.x < DISTANCE_FROM_BORDER && velocity.x < 0
+                || target.x - position.x > DISTANCE_FROM_ENEMY) {
+            velocity.x = isFlying ? SPEED_FLY : SPEED_WALK;
         }
 
-        if (position.x > levelWidth - DISTANCE_FROM_BORDER && velocity.x > 0) {
-            velocity.x = -SPEED_WALK;
+        if (position.x > levelWidth - DISTANCE_FROM_BORDER && velocity.x > 0
+                || position.x - target.x > DISTANCE_FROM_ENEMY) {
+            velocity.x = isFlying ? -SPEED_FLY : -SPEED_WALK;
+        }
+
+        if (position.y < DISTANCE_FROM_BORDER && velocity.y < 0
+                || isFlying && target.y - position.y > DISTANCE_FROM_ENEMY) {
+            velocity.y = SPEED_FLY;
+        }
+
+        if (position.y > levelHeight - DISTANCE_FROM_BORDER && velocity.y > 0
+                || isFlying && position.y - target.y > DISTANCE_FROM_ENEMY) {
+            velocity.y = -SPEED_FLY;
         }
     }
 }

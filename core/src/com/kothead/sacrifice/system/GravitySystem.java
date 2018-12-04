@@ -10,13 +10,12 @@ import com.badlogic.gdx.math.Vector3;
 import com.kothead.gdxjam.base.component.PositionComponent;
 import com.kothead.gdxjam.base.component.SpriteComponent;
 import com.kothead.gdxjam.base.component.VelocityComponent;
+import com.kothead.sacrifice.EntityManager;
 import com.kothead.sacrifice.component.DeleteAfterTimeComponent;
 import com.kothead.sacrifice.component.GravityComponent;
 import com.kothead.sacrifice.component.ProjectileComponent;
 
 public class GravitySystem extends IteratingSystem {
-
-    private static final float DELETE_CALM_PROJECTILES_AFTER = 2.0f;
 
     private int levelGround;
 
@@ -46,7 +45,7 @@ public class GravitySystem extends IteratingSystem {
             if (ProjectileComponent.mapper.has(entity)
                     && !DeleteAfterTimeComponent.mapper.has(entity)) {
                 velocity.x = 0;
-                entity.add(new DeleteAfterTimeComponent(DELETE_CALM_PROJECTILES_AFTER));
+                entity.add(new DeleteAfterTimeComponent(EntityManager.DELETE_SPEAR_AFTER));
             }
         } else if (ProjectileComponent.mapper.has(entity)) {
             Sprite sprite = SpriteComponent.mapper.get(entity).sprite;
